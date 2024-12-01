@@ -23,24 +23,24 @@ fn main() {
     list1.sort();
     list2.sort();
 
-    let answerA: i32 = list1
+    let answer_a: i32 = list1
         .iter()
         .zip(list2.clone())
         .map(|(i1, i2)| (i1 - i2) as i32)
         .fold(0, |sum, x| sum + x);
 
-    println!("Solution for Part A: {}", answerA);
+    println!("Solution for Part A: {}", answer_a);
     // Part B
     let similarity_list: Vec<i32> = list1
         .iter()
         .map(|&i1| list2.iter().filter(|&&i2| i2 == i1).count() as i32) // Count occurrences of i1 in list2
         .collect();
 
-    let answerB: i32 = list1
+    let answer_b: i32 = list1
         .iter()
         .zip(similarity_list)
         .map(|(i1, i2)| i1 * i2 as i32)
         .fold(0, |sum, x| sum + x);
 
-    println!("Solution for Part B: {}", answerB);
+    println!("Solution for Part B: {}", answer_b);
 }
