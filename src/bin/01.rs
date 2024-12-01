@@ -2,7 +2,7 @@ use std::fs;
 
 const INPUT_FILE: &str = "input/01.txt";
 
-fn part1() {
+fn main() {
     let input = fs::read_to_string(INPUT_FILE).expect("Got no clue, this ain't no file.");
     let parts: Vec<&str> = input.split_whitespace().collect();
 
@@ -23,20 +23,24 @@ fn part1() {
     list1.sort();
     list2.sort();
 
-    let mut distance_list = Vec::new();
-    for (i, _) in list1.iter().enumerate() {
-        distance_list.push((list1[i] - list2[i]).abs());
-    }
+    let answerA: i32 = list1
+        .iter()
+        .zip(list2.clone())
+        .map(|(i1, i2)| (i1 - i2) as i32)
+        .fold(0, |sum, x| sum + x);
 
-    let sum: i32 = distance_list.iter().sum();
+    println!("Solution for Part A: {}", answerA);
+    // Part B
+    let similarity_list: Vec<i32> = list1
+        .iter()
+        .map(|&i1| list2.iter().filter(|&&i2| i2 == i1).count() as i32) // Count occurrences of i1 in list2
+        .collect();
 
-    println!("{}", sum)
-}
+    let answerB: i32 = list1
+        .iter()
+        .zip(similarity_list)
+        .map(|(i1, i2)| i1 * i2 as i32)
+        .fold(0, |sum, x| sum + x);
 
-fn part2() {
-    let input = fs::read_to_string(INPUT_FILE).expect("This is definitely not a file.");
-}
-
-fn main() {
-    part1()
+    println!("Solution for Part B: {}", answerB);
 }
