@@ -1,6 +1,6 @@
 #+title: Advent Of Code 2024
 #+author: Adithya Nair
 
-These are my very poorly implemented solutions for Advent Of Code 2024.
+These are my very poorly implemented solutions for Advent Of Code 2024. Bear in mind that I'm completely new to Rust and be gentle.
 
 For a given day's solution, =src/bin/DAY.rs=  is what you're looking for.
