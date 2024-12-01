@@ -2,7 +2,7 @@ use std::fs;
 
 const INPUT_FILE: &str = "input/01.txt";
 
-fn main() {
+fn part1() {
     let input = fs::read_to_string(INPUT_FILE).expect("Got no clue, this ain't no file.");
     let parts: Vec<&str> = input.split_whitespace().collect();
 
@@ -33,6 +33,10 @@ fn main() {
     println!("{}", sum)
 }
 
-fn main() {
+fn part2() {
+    let input = fs::read_to_string(INPUT_FILE).expect("This is definitely not a file.");
+}
 
+fn main() {
+    part1()
 }
