@@ -25,7 +25,7 @@ fn main() {
 
     let answer_a: i32 = list1
         .iter()
-        .zip(list2.clone())
+        .zip(&list2)
         .map(|(i1, i2)| (i1 - i2) as i32)
         .fold(0, |sum, x| sum + x);
 
