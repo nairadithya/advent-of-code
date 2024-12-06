@@ -14,16 +14,17 @@ fn part_a() {
         })
         .collect::<Vec<Vec<i32>>>();
 
+    let is_safe = |list: &[i32]| {
+        let diffs: Vec<i32> = list
+            .windows(2)
+            .map(|window| window[1] - window[0])
+            .collect();
+        diffs.iter().all(|&x| (x < 0) && (x >= -3)) || diffs.iter().all(|&x| (x > 0) && (x <= 3))
+    };
+
     let count = levels_list
         .iter()
-        .map(|x| {
-            x.windows(2)
-                .map(|window| window[1] as i32 - window[0] as i32)
-                .all(|diff_item| ((diff_item > 0) && (diff_item <= 3)))
-                || x.windows(2)
-                    .map(|window| window[1] as i32 - window[0] as i32)
-                    .all(|diff_item| (diff_item < 0) && (diff_item >= -3))
-        })
+        .map(|x| is_safe(x))
         .filter(|&n| n == true)
         .count();
 

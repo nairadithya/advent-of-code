@@ -27,12 +27,11 @@ fn part_a() {
 fn part_b() {
     let input = fs::read_to_string(INPUT_FILE).expect("Got no clue, this ain't no file.");
 
-    let re: Regex = Regex::new(r"(?<mul>mul\(\d+,\d+\))").unwrap();
+    let re: Regex = Regex::new(r"(?<mul>mul\(\d+,\d+\))").expect("Huh, no arguments here");
 
-    println!("Solution For Part B: {}", numbers)
+    println!("Solution For Part B:")
 }
 
 fn main() {
     part_a();
-    part_b()
 }
