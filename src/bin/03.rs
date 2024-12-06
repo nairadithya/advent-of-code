@@ -1,9 +1,9 @@
 use regex::Regex;
 use std::fs;
 
-const INPUT_FILE: &str = "input/03.txt";
+const INPUT_FILE: &str = "input/03-test.txt";
 
-fn main() {
+fn part_a() {
     let input = fs::read_to_string(INPUT_FILE).expect("Got no clue, this ain't no file.");
 
     let re: Regex = Regex::new(r"(mul\(\d+,\d+\))").unwrap();
@@ -21,5 +21,18 @@ fn main() {
         })
         .sum::<i32>();
 
-    println!("{}", numbers)
+    println!("Solution For Part A: {}", numbers)
+}
+
+fn part_b() {
+    let input = fs::read_to_string(INPUT_FILE).expect("Got no clue, this ain't no file.");
+
+    let re: Regex = Regex::new(r"(?<mul>mul\(\d+,\d+\))").unwrap();
+
+    println!("Solution For Part B: {}", numbers)
+}
+
+fn main() {
+    part_a();
+    part_b()
 }

@@ -30,10 +30,9 @@ fn main() {
         .fold(0, |sum, x| sum + x);
 
     println!("Solution for Part A: {}", answer_a);
-    // Part B
     let similarity_list: Vec<i32> = list1
         .iter()
-        .map(|&i1| list2.iter().filter(|&&i2| i2 == i1).count() as i32) // Count occurrences of i1 in list2
+        .map(|&i1| list2.iter().filter(|&&i2| i2 == i1).count() as i32)
         .collect();
 
     let answer_b: i32 = list1

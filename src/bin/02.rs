@@ -1,5 +1,6 @@
 use std::fs;
-const INPUT_FILE: &str = "input/02-test.txt";
+
+const INPUT_FILE: &str = "input/02.txt";
 
 fn part_a() {
     let input = fs::read_to_string(INPUT_FILE).expect("Bro give me a real file");
@@ -43,11 +44,10 @@ fn part_a() {
         .count();
     print!("Solution for Part A: {}\n", count);
 }
-
 fn part_b() {
     let input = fs::read_to_string(INPUT_FILE).expect("Bro give me a real file");
 
-    let levels_list = input
+    let levels_list: Vec<Vec<i32>> = input
         .lines()
         .map(|s| {
             s.split(" ")
@@ -56,36 +56,8 @@ fn part_b() {
         })
         .collect::<Vec<Vec<i32>>>();
 
-    let positive_safety_list = levels_list
-        .iter()
-        .map(|x| {
-            x.windows(2)
-                .map(|window| window[0] as i32 - window[1] as i32)
-                .collect::<Vec<i32>>()
-                .iter()
-                .all(|&x| x > 0 && x <= 3)
-        })
-        .collect::<Vec<bool>>();
-
-    let negative_safety_list = levels_list
-        .iter()
-        .map(|x| {
-            x.windows(2)
-                .map(|window| window[0] as i32 - window[1] as i32)
-                .collect::<Vec<i32>>()
-                .iter()
-                .all(|&x| x < 0 && x >= -3)
-        })
-        .collect::<Vec<bool>>();
-
-    let count = positive_safety_list
-        .iter()
-        .zip(negative_safety_list.iter())
-        .map(|(&l1, &l2)| l1 || l2)
-        .filter(|&n| n == true)
-        .count();
-
-    println!("Solution For Part B:{}", count)
+    // Create a difference list, evaluate safety after removing one element. if one element is safe, break iteration and return safe.
+    levels_list.iter().enumerate();
 }
 
 fn main() {
