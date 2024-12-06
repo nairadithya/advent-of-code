@@ -34,7 +34,7 @@ fn part_a() {
 fn part_b() {
     let input = fs::read_to_string(INPUT_FILE).expect("Bro give me a real file");
 
-    let mut levels_list: Vec<Vec<i32>> = input
+    let levels_list: Vec<Vec<i32>> = input
         .lines()
         .map(|s| {
             s.split(" ")
@@ -43,24 +43,34 @@ fn part_b() {
         })
         .collect::<Vec<Vec<i32>>>();
 
-    let new_levels_list = levels_list.iter().map(|x| {
-        x.iter().enumerate().map(|(i, _)| {
-            let mut y = x.to_vec();
-            y.remove(i);
-            y.windows(2)
-                .map(|window| window[0] as i32 - window[1] as i32)
-                .collect::<Vec<i32>>()
-                .iter()
-                .all(|&x| ((x < 0) && (x <= 3)))
-                || y.windows(2)
-                    .map(|window| window[0] as i32 - window[1] as i32)
-                    .collect::<Vec<i32>>()
-                    .iter()
-                    .all(|&x| (x > 0) && (x <= 3))
+    let is_safe = |list: &[i32]| {
+        let diffs: Vec<i32> = list
+            .windows(2)
+            .map(|window| window[1] - window[0])
+            .collect();
+        diffs.iter().all(|&x| (x < 0) && (x >= -3)) || diffs.iter().all(|&x| (x > 0) && (x <= 3))
+    };
+
+    let count = levels_list
+        .iter()
+        .map(|x| {
+            if is_safe(x) {
+                true
+            } else {
+                (0..x.len()).any(|i| {
+                    let mut y = x.clone();
+                    y.remove(i);
+                    is_safe(&y)
+                })
+            }
         })
-    });
+        .filter(|&x| x == true)
+        .count();
+
+    println!("Solution for PartB: {}", count)
 }
 
 fn main() {
     part_a();
+    part_b();
 }
