@@ -14,40 +14,27 @@ fn part_a() {
         })
         .collect::<Vec<Vec<i32>>>();
 
-    let positive_safety_list = levels_list
+    //7 6 4 2 1
+    let count = levels_list
         .iter()
         .map(|x| {
             x.windows(2)
-                .map(|window| window[0] as i32 - window[1] as i32)
-                .collect::<Vec<i32>>()
-                .iter()
-                .all(|&x| x > 0 && x <= 3)
+                .map(|window| window[1] as i32 - window[0] as i32)
+                .all(|diff_item| ((diff_item > 0) && (diff_item <= 3)))
+                || x.windows(2)
+                    .map(|window| window[1] as i32 - window[0] as i32)
+                    .all(|diff_item| (diff_item < 0) && (diff_item >= -3))
         })
-        .collect::<Vec<bool>>();
-
-    let negative_safety_list = levels_list
-        .iter()
-        .map(|x| {
-            x.windows(2)
-                .map(|window| window[0] as i32 - window[1] as i32)
-                .collect::<Vec<i32>>()
-                .iter()
-                .all(|&x| x < 0 && x >= -3)
-        })
-        .collect::<Vec<bool>>();
-
-    let count = positive_safety_list
-        .iter()
-        .zip(negative_safety_list.iter())
-        .map(|(&l1, &l2)| l1 || l2)
         .filter(|&n| n == true)
         .count();
-    print!("Solution for Part A: {}\n", count);
+
+    println!("Solution For Part A: {}", count)
 }
+
 fn part_b() {
     let input = fs::read_to_string(INPUT_FILE).expect("Bro give me a real file");
 
-    let levels_list: Vec<Vec<i32>> = input
+    let mut levels_list: Vec<Vec<i32>> = input
         .lines()
         .map(|s| {
             s.split(" ")
@@ -56,11 +43,24 @@ fn part_b() {
         })
         .collect::<Vec<Vec<i32>>>();
 
-    // Create a difference list, evaluate safety after removing one element. if one element is safe, break iteration and return safe.
-    levels_list.iter().enumerate();
+    let new_levels_list = levels_list.iter().map(|x| {
+        x.iter().enumerate().map(|(i, _)| {
+            let mut y = x.to_vec();
+            y.remove(i);
+            y.windows(2)
+                .map(|window| window[0] as i32 - window[1] as i32)
+                .collect::<Vec<i32>>()
+                .iter()
+                .all(|&x| ((x < 0) && (x <= 3)))
+                || y.windows(2)
+                    .map(|window| window[0] as i32 - window[1] as i32)
+                    .collect::<Vec<i32>>()
+                    .iter()
+                    .all(|&x| (x < 0) && (x >= -3))
+        })
+    });
 }
 
 fn main() {
     part_a();
-    part_b();
 }
