@@ -14,7 +14,6 @@ fn part_a() {
         })
         .collect::<Vec<Vec<i32>>>();
 
-    //7 6 4 2 1
     let count = levels_list
         .iter()
         .map(|x| {
