@@ -4,21 +4,24 @@ const INPUT_FILE: &str = "input/01.txt";
 
 fn main() {
     let input = fs::read_to_string(INPUT_FILE).expect("Got no clue, this ain't no file.");
-    let parts: Vec<&str> = input.split_whitespace().collect();
 
-    let mut list1: Vec<i32> = parts
+    let mut list1 = input
+        .split_whitespace()
+        .collect::<Vec<&str>>()
         .iter()
         .enumerate()
         .filter(|(index, _)| index % 2 == 1)
         .map(|(_, element)| element.parse::<i32>().expect("This is not a number my guy"))
-        .collect();
+        .collect::<Vec<i32>>()
 
-    let mut list2: Vec<i32> = parts
+    let mut list2 = input
+        .split_whitespace()
+        .collect::<Vec<&str>>()
         .iter()
         .enumerate()
         .filter(|(index, _)| index % 2 != 1)
         .map(|(_, element)| element.parse::<i32>().expect("This is not a number my guy"))
-        .collect();
+        .collect::<Vec<i32>>();
 
     list1.sort();
     list2.sort();
@@ -41,10 +44,5 @@ fn main() {
         .map(|(i1, i2)| i1 * i2 as i32)
         .fold(0, |sum, x| sum + x);
 
-    println!("Solution For Part B: {}", numbers)
-}
-
-fn main() {
-    part_a();
-    part_b()
+    println!("Solution For Part B: {}", answer_b)
 }
