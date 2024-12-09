@@ -2,26 +2,21 @@ use std::fs;
 
 const INPUT_FILE: &str = "input/01.txt";
 
+fn convert_to_vec(x: &str, i: usize) -> Vec<i32> {
+    x.split_whitespace()
+        .collect::<Vec<&str>>()
+        .iter()
+        .enumerate()
+        .filter(|(index, _)| index % 2 == i)
+        .map(|(_, element)| element.parse::<i32>().expect("This is not a number my guy"))
+        .collect::<Vec<i32>>()
+}
+
 fn main() {
     let input = fs::read_to_string(INPUT_FILE).expect("Got no clue, this ain't no file.");
 
-    let mut list1 = input
-        .split_whitespace()
-        .collect::<Vec<&str>>()
-        .iter()
-        .enumerate()
-        .filter(|(index, _)| index % 2 == 1)
-        .map(|(_, element)| element.parse::<i32>().expect("This is not a number my guy"))
-        .collect::<Vec<i32>>()
-
-    let mut list2 = input
-        .split_whitespace()
-        .collect::<Vec<&str>>()
-        .iter()
-        .enumerate()
-        .filter(|(index, _)| index % 2 != 1)
-        .map(|(_, element)| element.parse::<i32>().expect("This is not a number my guy"))
-        .collect::<Vec<i32>>();
+    let mut list1 = convert_to_vec(&input, 1);
+    let mut list2 = convert_to_vec(&input, 0);
 
     list1.sort();
     list2.sort();
