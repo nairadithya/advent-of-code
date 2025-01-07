@@ -34,7 +34,6 @@ fn part_b() {
 
     let mut flag = true;
     let mut sum = 0;
-    println!("Solution For Part B: {:?}", list);
     for item in list {
         if item == "do()" {
             flag = true;
